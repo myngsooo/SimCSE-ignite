@@ -11,11 +11,8 @@ from ignite.engine import Engine
 from ignite.engine import Events
 from ignite.metrics import RunningAverage
 from ignite.contrib.handlers.tqdm_logger import ProgressBar
-from ignite.utils import manual_seed
 
-from transformers import AutoTokenizer, AutoModel
 from transformers.models.bert.modeling_bert import BertLMPredictionHead
-# from transformers.trainer_utils import set_seed
 
 from copy import deepcopy
 from scipy.stats import spearmanr

@@ -15,7 +15,6 @@ from torch.utils.data import DataLoader
 from transformers import AutoConfig, AutoModel, AutoTokenizer
 from transformers import AdamW
 from transformers import get_linear_schedule_with_warmup
-from ignite.utils import manual_seed
 
 from simcse.utils import *
 from simcse.trainer import Trainer
