@@ -1,4 +1,4 @@
-## Unsupervised SimCSE
+## A Simple Implementation of Unsupervised SimCSE
 
 [SimCSE](https://aclanthology.org/2021.emnlp-main.552/), a straightforward sentence embedding method using contrastive learning, is hailed as one of the most promising techniques in the **SRL**(Sentence Representation Learning) field. However, the official [SimCSE implementation](https://github.com/princeton-nlp/SimCSE) is deemed overly complex with numerous features beyond users' expectations. 
 
