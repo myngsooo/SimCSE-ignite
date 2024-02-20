@@ -13,7 +13,6 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 
 from transformers import AutoConfig, AutoModel, AutoTokenizer
-from transformers import BertConfig, BertModel, BertTokenizer, BertTokenizerFast
 from transformers import AdamW
 from transformers import get_linear_schedule_with_warmup
 from ignite.utils import manual_seed
@@ -94,7 +93,7 @@ def define_argparser():
         '--seed', 
         type=int, 
         default=42,
-        help='Random seed',
+        help='Set random seed',
     )
     
     # SimCSE's arguments
@@ -154,17 +153,24 @@ def define_argparser():
 
     return args
 
+def set_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+def print_config(config):
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(vars(config))
+
 def main(args):
-    manual_seed(args.seed)
-    def print_config(config):
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(vars(config))
+    set_seed(args.seed)
     print_config(args)
     
-    tokenizer = BertTokenizer.from_pretrained(args.model_name_or_path)
-    model = BertModel.from_pretrained(args.model_name_or_path).cuda(args.gpu_id)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
+    model = AutoModel.from_pretrained(args.model_name_or_path).cuda(args.gpu_id)
     
-    config = BertConfig.from_pretrained(args.model_name_or_path)
+    config = AutoConfig.from_pretrained(args.model_name_or_path)
     train_loader, valid_loader = get_loaders(args, tokenizer)    
     
     print(

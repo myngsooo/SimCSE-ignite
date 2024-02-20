@@ -14,8 +14,8 @@ from transformers import BertModel, BertTokenizer
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 # Set PATHs
-PATH_TO_SENTEVAL = '/home/user/lg3/simcse/codes/SentEval'
-PATH_TO_DATA = '/home/user/lg3/simcse/codes/SentEval/data'
+PATH_TO_SENTEVAL = './codes/SentEval'
+PATH_TO_DATA = './codes/SentEval/data'
 
 # Import SentEval
 sys.path.insert(0, PATH_TO_SENTEVAL)
