@@ -37,6 +37,7 @@ bash download_stsb.sh
 
 ### Download the downstream dataset
 ```
+cd ..
 cd SentEval/data/
 bash download.sh
 ```
