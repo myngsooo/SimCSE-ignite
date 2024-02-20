@@ -7,89 +7,57 @@ class DataCollator():
         self.tokenizer = tokenizer        
         self.args = args
         self.mode = mode
+         
+    def encode_sentences(self, sent):
+        encoding = self.tokenizer(
+            sent, 
+            padding="max_length", 
+            truncation=True, 
+            return_tensors="pt", 
+            max_length=self.args.max_length
+        )
+        return encoding['input_ids'], encoding['attention_mask']
         
     def __call__(self, samples):
         if self.mode == 'train':
             sent = [s['sent'] for s in samples]
-            
+            input_ids, attention_mask = self.encode_sentences(sent)
             if self.args.do_mlm:
-                encoding = self.tokenizer(
-                    sent, 
-                    padding="max_length", 
-                    truncation=True, 
-                    return_tensors="pt", 
-                    max_length=self.args.max_length
-                )
-                encoding_ = self.tokenizer(
-                    sent, 
-                    padding="max_length", 
-                    truncation=True, 
-                    return_tensors="pt", 
-                    max_length=self.args.max_length
-                )
-                m_encoding, m_encoding_label = get_mask_tokens(
+                masked_input_ids, masked_input_ids_label = get_mask_tokens(
                     self, 
                     self.tokenizer, 
-                    encoding['input_ids']
+                    input_ids
                 )
-                return_value = {
-                    'input_ids': encoding['input_ids'],
-                    'input_ids_': encoding_['input_ids'],
-                    'attention_mask': encoding['attention_mask'],
-                    'attention_mask_': encoding_['attention_mask'],
-                    'masked_input_ids' : m_encoding,
-                    'masked_input_ids_label' : m_encoding_label,
-                    }
-            else:          
-                encoding = self.tokenizer(
-                    sent, 
-                    padding="max_length", 
-                    truncation=True, 
-                    return_tensors="pt", 
-                    max_length=self.args.max_length
-                )
-                encoding_ = self.tokenizer(
-                    sent, 
-                    padding="max_length", 
-                    truncation=True, 
-                    return_tensors="pt", 
-                    max_length=self.args.max_length
-                )
-                return_value = {
-                        'input_ids': encoding['input_ids'],
-                        'input_ids_': encoding_['input_ids'],
-                        'attention_mask': encoding['attention_mask'],
-                        'attention_mask_': encoding_['attention_mask'],
-                        }
-                
+                return {
+                    'input_ids': input_ids,
+                    'attention_mask': attention_mask,
+                    'input_ids_': input_ids,
+                    'attention_mask_': attention_mask,
+                    'masked_input_ids': masked_input_ids,
+                    'masked_input_ids_label': masked_input_ids_label,
+                }
+            else:
+                return {
+                    'input_ids': input_ids,
+                    'attention_mask': attention_mask,
+                    'input_ids_': input_ids,
+                    'attention_mask_': attention_mask,
+                }
         elif self.mode == 'valid':
             sent1 = [s['sent1'] for s in samples]
             sent2 = [s['sent2'] for s in samples]
             score = [s['score'] for s in samples]
             
-            encoding1 = self.tokenizer(
-                sent1,
-                padding="max_length",
-                truncation=True,
-                return_tensors="pt",
-                max_length=self.args.max_length
-            )
+            input_ids1, attention_mask1 = self.encode_sentences(sent1)
+            input_ids2, attention_mask2 = self.encode_sentences(sent2)
             
-            encoding2 = self.tokenizer(
-                sent2,
-                padding="max_length",
-                truncation=True,
-                return_tensors="pt",
-                max_length=self.args.max_length
-            )     
-            return_value = {
-                'input_ids1': encoding1['input_ids'],
-                'attention_mask1': encoding1['attention_mask'],
-                'input_ids2': encoding2['input_ids'],
-                'attention_mask2': encoding2['attention_mask'],
-                'score' : torch.tensor(score, dtype=torch.long),
+            return {
+                'input_ids1': input_ids1,
+                'attention_mask1': attention_mask1,
+                'input_ids2': input_ids2,
+                'attention_mask2': attention_mask2,
+                'score': torch.tensor(score, dtype=torch.long),
             }
-        return return_value
 
 
 class TrainDataset(Dataset):
