@@ -1,6 +1,6 @@
 TRAIN_PATH=''
 STS_DEV_PATH=''
-MODEL_PATH=''
+MODEL_PATH='bert-base-uncased' # huggingface transformer embedding model
 
 python codes/train.py \
     --train_fn ${TRAIN_PATH} \
