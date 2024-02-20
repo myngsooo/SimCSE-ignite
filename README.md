@@ -1,10 +1,9 @@
 ## Unsupervised SimCSE
 
-SimCSE is considered to be the most promising sentence embedding method using contrastive learning, whose concept is very simple in itself.
+[SimCSE](https://aclanthology.org/2021.emnlp-main.552/) is considered to be the most promising sentence embedding methodology using contrastive learning, whose concept is very simple in itself. However, the official [SimCSE](https://github.com/princeton-nlp/SimCSE) implementation is deemed overly complex with numerous features beyond users' expectations. 
 
-However, the official [SimCSE](https://github.com/princeton-nlp/SimCSE) implementation is deemed overly complex with numerous features beyond users' expectations. Focused solely on the unsupervised version of SimCSE, this repo offers a minimal feature set for developing the unsupervised SimCSE methods. Therfore, I hope that this repo can serve as an ideal starting point for individuals seeking simplicity without unnecessary features. 
+This repo provides a streamlined version dedicated exclusively to the unsupervised SimCSE. It serves as a partial alternative to the official codebase, offering a minimal feature set tailored specifically for the development of unsupervised SimCSE methods. Therfore, I hope that this repo can serve as an ideal starting point for individuals seeking simplicity without unnecessary features. 
 
-This repo can be an alternative to the official [SimCSE](https://github.com/princeton-nlp/SimCSE), 
 * Please note that some of the code remains unchanged.
 
 ## Requirements
