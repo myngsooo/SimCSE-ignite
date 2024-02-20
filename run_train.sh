@@ -1,12 +1,13 @@
 TRAIN_PATH=''
 STS_DEV_PATH=''
 MODEL_PATH='bert-base-uncased' # huggingface transformer embedding model
+OUTPUT_DIR=''
 
 python codes/train.py \
     --train_fn ${TRAIN_PATH} \
     --valid_fn ${STS_DEV_PATH} \
     --model_name_or_path ${MODEL_PATH} \
-    --output_dir ./codes/result/model.pt \
+    --output_dir ${OUTPUT_DIR} \
     --batch_size 64 \
     --do_eval_step \
     --eval_step 250 \
