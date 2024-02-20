@@ -23,11 +23,7 @@ class DataCollator():
             sent = [s['sent'] for s in samples]
             input_ids, attention_mask = self.encode_sentences(sent)
             if self.args.do_mlm:
-                masked_input_ids, masked_input_ids_label = get_mask_tokens(
-                    self, 
-                    self.tokenizer, 
-                    input_ids
-                )
+                masked_input_ids, masked_input_ids_label = get_mask_tokens(self, self.tokenizer, input_ids)
                 return {
                     'input_ids': input_ids,
                     'attention_mask': attention_mask,
