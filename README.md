@@ -4,7 +4,7 @@
 
 This repo provides a streamlined version dedicated exclusively to the unsupervised SimCSE. It serves as a partial alternative to the official codebase, offering a minimal feature set tailored specifically for the development of unsupervised SimCSE methods. Therfore, I hope that this repo can serve as an ideal starting point for individuals seeking simplicity without unnecessary features. 
 
-* Please note that some of the code remains unchanged.
+(Please note that some of the code remains unchanged.)
 
 ## Requirements
 [![Python](https://img.shields.io/badge/python-3.8.6-blue?logo=python&logoColor=FED643)](https://www.python.org/downloads/release/python-386/)
