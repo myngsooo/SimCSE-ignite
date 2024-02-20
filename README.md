@@ -3,7 +3,6 @@
 This repo offers alternatives to the official SimCSE portal, which is deemed overly complex with numerous features beyond users' expectations. Focused solely on the unsupervised version of SimCSE, this repo provides a minimal feature set for developing the unsupervised SimCSE methodology. It serves as an ideal starting point for individuals seeking simplicity without unnecessary features.
 
 ## Requirements
-----
 First, install PyTorch by following the instructions from [the official website](https://pytorch.org). 
 
 ```bash
@@ -22,22 +21,20 @@ Then run the following script to install the remaining dependencies,
 pip install -r requirements.txt
 ```
 
-### Download the pretraining dataset
-----
+### Download the training/dev dataset
 ```
 cd data
 bash download_wiki.sh
+bash download_stsb.sh
 ```
 
 ### Download the downstream dataset
-----
 ```
-cd Eval/data/
+cd SentEval/data/
 bash download.sh
 ```
 
 ## Training
-----
 ```bash
 TRAIN_PATH=''
 STS_DEV_PATH=''
@@ -62,7 +59,6 @@ python codes/train.py \
 ```
 
 ## Evaluation
-----
 You can run the commands below for evaluation after using the repo to train a model:
 
 ```bash
@@ -78,5 +74,4 @@ python codes/test.py \
 ```
 
 ## References
-----
 [SimCSE's GitHub repo](https://github.com/princeton-nlp/SimCSE).
