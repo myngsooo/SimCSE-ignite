@@ -47,13 +47,13 @@ def get_loaders(args, tokenizer):
         collate_fn=DataCollator(tokenizer, args, mode="train"),
     )
 
-    sts_dev_loader = DataLoader(
+    dev_loader  = DataLoader(
         ValidDataset(sent1, sent2, score),
         batch_size=args.batch_size,
         shuffle=True,
         collate_fn=DataCollator(tokenizer, args, mode="valid"),
     )
-    return train_loader, sts_dev_loader 
+    return train_loader, dev_loader 
 
 def get_optimizer(model, args):
     no_decay = ['bias', 'LayerNorm.weight']
