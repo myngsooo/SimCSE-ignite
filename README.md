@@ -1,6 +1,8 @@
 ## SimCSE: Simple Contrastive Learning of Sentence Embeddings
 
-This repo can be an alternative to the official [SimCSE](https://github.com/princeton-nlp/SimCSE), which is deemed overly complex with numerous features beyond users' expectations. Focused solely on the unsupervised version of SimCSE, this repo provides a minimal feature set for developing the unsupervised SimCSE methodology. It serves as an ideal starting point for individuals seeking simplicity without unnecessary features.
+This repo can be an alternative to the official SimCSE, which is deemed overly complex with numerous features beyond users' expectations. Focused solely on the unsupervised version of SimCSE, this repo provides a minimal feature set for developing the unsupervised SimCSE methodology. Therfore, I hope that this repo can serve as an ideal starting point for individuals seeking simplicity without unnecessary features. 
+
+Please note that some of the code remains unchanged.
 
 ## Requirements
 First, install PyTorch by following the instructions from [the official website](https://pytorch.org). 
