@@ -46,7 +46,6 @@ class SimCSE(Engine):
 
     @staticmethod
     def train(engine, mini_batch):
-        manual_seed(42)
         engine.model.train()
         engine.optimizer.zero_grad()
 
@@ -114,7 +113,6 @@ class SimCSE(Engine):
 
     @staticmethod
     def validate(engine, mini_batch):
-        manual_seed(1111)
         engine.model.eval()
 
         with torch.no_grad():
@@ -126,11 +124,6 @@ class SimCSE(Engine):
             
             score = mini_batch['score'].long().to(engine.device)
             
-            # if engine.args.mixed_precision:
-            #     with autocast():
-            #         sent1 = engine.model(input_ids1, attention_mask1, output_hidden_states=True, return_dict=None)
-            #         sent2 = engine.model(input_ids2, attention_mask2, output_hidden_states=True, return_dict=None)
-            # else:
             sent1 = engine.model(input_ids1, attention_mask1, output_hidden_states=True, return_dict=None)
             sent2 = engine.model(input_ids2, attention_mask2, output_hidden_states=True, return_dict=None)
                 
@@ -138,13 +131,6 @@ class SimCSE(Engine):
             c1 = pooler(attention_mask1, sent1)
             c2 = pooler(attention_mask2, sent2)
             
-            # mlp = MLPLayer(
-            #     input_dim=engine.args.hidden_size, 
-            #     output_dim=engine.args.hidden_size
-            # ).to(engine.device)
-            
-            # c1, c2 = mlp(c1), mlp(c2)
-                        
             e_align = align_loss(c1, c2)
             e_uniform = uniform_loss(torch.cat([c1, c2]))
             

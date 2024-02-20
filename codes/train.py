@@ -155,7 +155,7 @@ def define_argparser():
     return args
 
 def main(args):
-    # manual_seed(args.seed)
+    manual_seed(args.seed)
     def print_config(config):
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(vars(config))
