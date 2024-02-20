@@ -8,7 +8,7 @@ class DataCollator():
         self.args = args
         self.mode = mode
          
-    def encode_sentences(self, sent):
+    def _encode(self, sent):
         encoding = self.tokenizer(
             sent, 
             padding="max_length", 
@@ -21,7 +21,7 @@ class DataCollator():
     def __call__(self, samples):
         if self.mode == 'train':
             sent = [s['sent'] for s in samples]
-            input_ids, attention_mask = self.encode_sentences(sent)
+            input_ids, attention_mask = self._encode(sent)
             if self.args.do_mlm:
                 masked_input_ids, masked_input_ids_label = get_mask_tokens(self, self.tokenizer, input_ids)
                 return {
@@ -44,8 +44,8 @@ class DataCollator():
             sent2 = [s['sent2'] for s in samples]
             score = [s['score'] for s in samples]
             
-            input_ids1, attention_mask1 = self.encode_sentences(sent1)
-            input_ids2, attention_mask2 = self.encode_sentences(sent2)
+            input_ids1, attention_mask1 = self._encode(sent1)
+            input_ids2, attention_mask2 = self._encode(sent2)
             
             return {
                 'input_ids1': input_ids1,
