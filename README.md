@@ -35,7 +35,7 @@ bash download_wiki.sh
 bash download_stsb.sh
 ```
 
-### Download the downstream dataset
+### Download the test dataset
 ```
 cd ..
 cd SentEval/data/
