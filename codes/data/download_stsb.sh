@@ -1,0 +1,1 @@
+wget https://huggingface.co/datasets/myngsoooo/eval_simcse/resolve/main/sts-dev.tsv

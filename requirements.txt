@@ -1,0 +1,9 @@
+pandas
+numpy
+torch
+jsonlines
+pytorch-ignite
+transformers
+torch_optimizer
+scikit-learn
+
