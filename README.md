@@ -1,23 +1,26 @@
-## SimCSE: Simple Contrastive Learning of Sentence Embeddings
+## Unsupervised SimCSE
 
-This repo can be an alternative to the official SimCSE, which is deemed overly complex with numerous features beyond users' expectations. Focused solely on the unsupervised version of SimCSE, this repo provides a minimal feature set for developing the unsupervised SimCSE methodology. Therfore, I hope that this repo can serve as an ideal starting point for individuals seeking simplicity without unnecessary features. 
+This repo can be an alternative to the official [SimCSE](https://github.com/princeton-nlp/SimCSE)., which is deemed overly complex with numerous features beyond users' expectations. Focused solely on the unsupervised version of SimCSE, this repo offers a minimal feature set for developing the unsupervised SimCSE methods. Therfore, I hope that this repo can serve as an ideal starting point for individuals seeking simplicity without unnecessary features. 
 
 Please note that some of the code remains unchanged.
 
 ## Requirements
+[![Python](https://img.shields.io/badge/python-3.8.6-blue?logo=python&logoColor=FED643)](https://www.python.org/downloads/release/python-386/)
+[![Pytorch](https://img.shields.io/badge/pytorch-1.12.1+cu116-red?logo=pytorch)](https://pytorch.org/get-started/previous-versions/)
+
 First, install PyTorch by following the instructions from [the official website](https://pytorch.org). 
 
 ```bash
 pip install torch==1.12.1+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
 ```
 
-If you instead use **CUDA** `<11` or **CPU**, install PyTorch by the following command,
+If you instead use **CUDA** `<11` or **CPU**, install PyTorch by the following command.
 
 ```bash
 pip install torch==1.12.1
 ```
 
-Then run the following script to install the remaining dependencies,
+Then run the following script to install the remaining dependencies.
 
 ```bash
 pip install -r requirements.txt
