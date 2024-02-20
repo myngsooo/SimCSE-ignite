@@ -1,8 +1,8 @@
 export CUDA_VISIBLE_DEVICES=1
 
-TRAIN_PATH='/home/user/lg3/simcse/codes/data/wiki1m_for_simcse.txt'
-STS_DEV_PATH='/home/user/lg3/simcse/codes/data/sts-dev.tsv'
-MODEL_PATH='bert-base-uncased'
+TRAIN_PATH=''
+STS_DEV_PATH=''
+MODEL_PATH=''
 
 python codes/train.py \
     --train_fn ${TRAIN_PATH} \

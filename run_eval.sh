@@ -1,4 +1,4 @@
-MODEL_PATH='/home/user/lg3/simcse/codes/result/model.pt'
+MODEL_PATH=''
 
 python codes/test.py \
     --model_name_or_path ${MODEL_PATH} \
