@@ -59,24 +59,50 @@ class SimCSE(Engine):
             with autocast(): 
                 engine.config.hidden_dropout_prob=0.1
                 engine.config.attention_probs_dropout_prob=0.1
-                sent1 = engine.model(input_ids, attention_mask, output_hidden_states=True, return_dict=None)
                 
+                sent1 = engine.model(
+                                     input_ids, 
+                                     attention_mask, 
+                                     output_hidden_states=True, 
+                                     return_dict=None
+                                    )
                 engine.config.hidden_dropout_prob=0.1
                 engine.config.attention_probs_dropout_prob=0.1                
-                sent2 = engine.model(input_ids_, attention_mask_, output_hidden_states=True, return_dict=None)
+                
+                sent2 = engine.model(
+                                     input_ids_, 
+                                     attention_mask_, 
+                                     output_hidden_states=True, 
+                                     return_dict=None
+                                    )
         else:
-            sent1 = engine.model(input_ids, attention_mask, output_hidden_states=True, return_dict=None)
-            sent2 = engine.model(input_ids_, attention_mask_, output_hidden_states=True, return_dict=None)
-        
+            engine.config.hidden_dropout_prob=0.1
+            engine.config.attention_probs_dropout_prob=0.1   
+            
+            sent1 = engine.model(
+                                 input_ids, 
+                                 attention_mask, 
+                                 output_hidden_states=True, 
+                                 return_dict=None
+                                )
+            engine.config.hidden_dropout_prob=0.1
+            engine.config.attention_probs_dropout_prob=0.1   
+            
+            sent2 = engine.model(
+                                 input_ids_, 
+                                 attention_mask_, 
+                                 output_hidden_states=True, 
+                                 return_dict=None
+                                )
         pooler = Pooler(engine.args.pooler_type)
     
         c1 = pooler(attention_mask, sent1)
         c2 = pooler(attention_mask_, sent2)
         
         mlp = MLPLayer(
-            input_dim=engine.args.hidden_size, 
-            output_dim=engine.args.hidden_size
-        ).to(engine.device)
+                       input_dim=engine.args.hidden_size, 
+                       output_dim=engine.args.hidden_size
+                    ).to(engine.device)
             
         z1, z2 = mlp(c1), mlp(c2)
     
@@ -93,11 +119,21 @@ class SimCSE(Engine):
             mlm_output, mlm_labels = mini_batch['masked_input_ids'].to(engine.device), mini_batch['masked_input_ids_label'].to(engine.device)
             if engine.args.mixed_precision:
                 with autocast():
-                    m_documents = engine.model(mlm_output, attention_mask, output_hidden_states=True, return_dict=None)
+                    masked_sent = engine.model(
+                                               mlm_output, 
+                                               attention_mask, 
+                                               output_hidden_states=True, 
+                                               return_dict=None
+                                            )
             else:
-                m_documents = engine.model(mlm_output, attention_mask, output_hidden_states=True, return_dict=None)
+                masked_sent = engine.model(
+                                           mlm_output, 
+                                           attention_mask, 
+                                           output_hidden_states=True, 
+                                           return_dict=None
+                                        )
             
-            prediction_scores = engine.lm_head(m_documents.last_hidden_state)
+            prediction_scores = engine.lm_head(masked_sent.last_hidden_state)
             masked_lm_loss = engine.criterion(prediction_scores.view(-1, engine.config.vocab_size), mlm_labels.view(-1))
             loss += engine.args.mlm_weight * masked_lm_loss
         
@@ -124,8 +160,18 @@ class SimCSE(Engine):
             
             score = mini_batch['score'].long().to(engine.device)
             
-            sent1 = engine.model(input_ids1, attention_mask1, output_hidden_states=True, return_dict=None)
-            sent2 = engine.model(input_ids2, attention_mask2, output_hidden_states=True, return_dict=None)
+            sent1 = engine.model(
+                                 input_ids1, 
+                                 attention_mask1, 
+                                 output_hidden_states=True, 
+                                 return_dict=None
+                                )
+            sent2 = engine.model(
+                                 input_ids2, 
+                                 attention_mask2, 
+                                 output_hidden_states=True, 
+                                 return_dict=None
+                                )
                 
             pooler = Pooler('cls_before_pooler')            
             c1 = pooler(attention_mask1, sent1)
