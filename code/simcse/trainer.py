@@ -113,7 +113,8 @@ class SimCSE(Engine):
         loss = engine.criterion(cos_sim, labels)
             
         if engine.args.do_mlm:
-            mlm_output, mlm_labels = mini_batch['masked_input_ids'].to(engine.device), mini_batch['masked_input_ids_label'].to(engine.device)
+            mlm_output = mini_batch['masked_input_ids'].to(engine.device)
+            mlm_labels = mini_batch['masked_input_ids_label'].to(engine.device)
             if engine.args.mixed_precision:
                 with autocast():
                     masked_sent = engine.model(
